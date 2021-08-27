@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>css变量</title>
+</head>
+<body>
+	<ul class="strip-loading">
+    <li style="--line-index: 1;"></li>
+    <li style="--line-index: 2;"></li>
+    <li style="--line-index: 3;"></li>
+    <li style="--line-index: 4;"></li>
+    <li style="--line-index: 5;"></li>
+    <li style="--line-index: 6;"></li>
+	</ul>
+	<ul class="hover-tips" id="click-tips">
+    <li class="item" data-name="红"></li>
+    <li class="item" data-name="紫"></li>
+    <li class="item" data-name="橙"></li>
+    <li class="item" data-name="蓝"></li>
+    <li class="item" data-name="青"></li>
+    <li class="item" data-name="绿"></li>
+	</ul>
+</body>
+<style>
+	*{
+		margin: 0;
+	}
+	.strip-loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 200px;
+    height: 200px;
+	}
+	.strip-loading li {
+		--time: calc((var(--line-index) - 1) * 200ms);
+		list-style: none;
+		border-radius: 3px;
+		width: 6px;
+		height: 30px;
+		background-color: #f66;
+		animation: beat 1s ease-in-out infinite;
+		animation-delay: var(--time);
+		margin-left: 5px;
+	}
+	@keyframes beat {
+			0%,
+			100% {
+					transform: scaleY(1);
+			}
+			50% {
+					transform: scaleY(.5);
+			}
+	}
+
+.hover-tips {
+  display: flex;
+  justify-content: space-between;
+  width: 200px;
+}
+.hover-tips li {
+	list-style: none;
+  position: relative;
+  padding: 2px;
+  border: 2px solid transparent;
+  border-radius: 100%;
+  width: 24px;
+  height: 24px;
+  background-clip: content-box;
+  cursor: pointer;
+  transition: all 300ms;
+}
+.hover-tips li::before, .hover-tips li::after {
+  position: absolute;
+  left: 50%;
+  bottom: 100%;
+  opacity: 0;
+  transform: translate3d(0, -30px, 0);
+  transition: all 300ms;
+}
+.hover-tips li::before {
+  margin: 0 0 12px -35px;
+  border-radius: 5px;
+  width: 70px;
+  height: 30px;
+  background-color: rgba(0, 0, 0, 0.5);
+  line-height: 30px;
+  text-align: center;
+  color: #fff;
+  content: attr(data-name);
+}
+.hover-tips li::after {
+  margin-left: -6px;
+  border: 6px solid transparent;
+  border-top-color: rgba(0, 0, 0, 0.5);
+  width: 0;
+  height: 0;
+  content: "";
+}
+.hover-tips li:nth-child(1) {
+  background-color: #f66;
+}
+.hover-tips li:nth-child(1):hover {
+  border-color: #f66;
+}
+.hover-tips li:nth-child(2) {
+  background-color: #66f;
+}
+.hover-tips li:nth-child(2):hover {
+  border-color: #66f;
+}
+.hover-tips li:nth-child(3) {
+  background-color: #f90;
+}
+.hover-tips li:nth-child(3):hover {
+  border-color: #f90;
+}
+.hover-tips li:nth-child(4) {
+  background-color: #09f;
+}
+.hover-tips li:nth-child(4):hover {
+  border-color: #09f;
+}
+.hover-tips li:nth-child(5) {
+  background-color: #9c3;
+}
+.hover-tips li:nth-child(5):hover {
+  border-color: #9c3;
+}
+.hover-tips li:nth-child(6) {
+  background-color: #3c9;
+}
+.hover-tips li:nth-child(6):hover {
+  border-color: #3c9;
+}
+.hover-tips li:hover::before, .hover-tips li:hover::after {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+/* .hover-tips li.add-hover::before,.hover-tips li.add-hover::after{
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+} */
+
+</style>
+<script>
+	document.getElementById('click-tips').onclick = function (event) {
+		var classList = document.getElementsByClassName('item')
+		for(var i =0 ;i<classList.length;i++){
+			classList[i].className = 'item'
+		}
+		event.target.className = 'item add-hover';
+	}
+</script>
+</html>

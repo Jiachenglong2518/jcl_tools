@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>多行文本展开隐藏</title>
+</head>
+<body>
+	<div class="wrap">
+		<input type="text" id="tag" hidden>
+		<div class="text">
+			<label for="tag" class="tag_text">展开</label>
+			这是一个测试多行文本溢出隐藏实现，
+			这是一个测试多行文本溢出隐藏实现这是一个测试多行文
+			本溢出隐藏实现这是一个测试多行文本溢出隐藏实现这是一
+			个测试多行文本溢出隐藏实现这是一个测试多行文本溢出隐
+			藏实现这是一个测试多行文本溢出隐藏实现这是一个测试多行\
+			文本溢出隐藏实现这是一个测试多行文本溢出隐藏实现这是一
+			个测试多行文本溢出隐藏实现这是一个测试多行文本溢出隐藏实
+			现这是一个测试多行文本溢出隐藏实现这是一个测试多行文本溢
+			出隐藏实现啊实打实啊实打实打算阿萨大厦大厦阿斯顿阿斯顿阿
+			阿三大苏打三大苏打
+		</div>
+	</div>
+	
+</body>
+<style>
+	*{
+		box-sizing: border-box;
+	}
+	.wrap{
+		/* display: flex; */
+		display: -webkit-box;
+ 		overflow: hidden;
+		box-shadow: 0px 0px 5px rgba(0,0,0,0.5);
+	}
+	.text{
+		width: 100%;
+		overflow: hidden;
+		position: relative;
+		padding: 3px;
+		/* display: -webkit-box;
+		-webkit-line-clamp: 3;
+		-webkit-box-orient: vertical; */
+		
+		line-height: 1.5;
+  	max-height: 4.5em;
+	}
+	.text::before{
+		content: '';
+		float: right;
+		width: 2px; /*设置为0，或者不设置宽度*/
+		height: calc(100% - 16px);/*先随便设置一个高度*/
+		/* height: 20px;先随便设置一个高度 */
+		background: red;
+	}
+	.text .tag_text{
+		background: royalblue;
+		color:#fff;
+		border-radius: 5px;
+		padding: 0px 5px;
+		font-size: 12px;
+    float: right;
+		clear: both;
+		height: 16px;
+    line-height: 16px;
+	}
+	.text .tag_text::after{
+		/* content: '...';
+		color: #000;
+		position: absolute;
+		left: -16px;
+		width: 16px;
+		background: #fff;
+		box-shadow: -15px 0px 5px rgba(255,255,255,0.7); */
+	}
+</style>
+</html>

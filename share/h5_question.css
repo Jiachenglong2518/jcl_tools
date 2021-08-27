@@ -1,0 +1,266 @@
+        * {
+            white-space: pre-line;
+			margin: 0;
+        }
+
+        * {
+            /* -webkit-tap-highlight-color: transparent; */
+        }
+
+
+        input::-webkit-input-placeholder {
+            color: #66f;
+        }
+        body {
+            padding-right: calc(100vw - 100%);
+            height: 200vh;
+            padding-left: 10px;
+        }
+        .static{
+            position: fixed;
+            left: 0;
+        }
+        #bottom{
+            height: 1px;
+        }
+
+        /* 美化inputplaceholder样式 */
+        input::-webkit-input-placeholder {
+            color: red;
+        }
+
+        .scrollbar {
+            margin-left: 30px;
+            height: 150px;
+            width: 65px;
+            background: #F5F5F5;
+            overflow-y: scroll;
+            margin-bottom: 25px;
+        }
+        .force-overflow{
+            min-height: 450px;
+        }
+        #style-1::-webkit-scrollbar-track{
+            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+            border-radius: 10px;
+            background-color: #F5F5F5;
+        }
+
+        #style-1::-webkit-scrollbar {
+            width: 12px;
+            background-color: #F5F5F5;
+        }
+
+        #style-1::-webkit-scrollbar-thumb{
+            border-radius: 10px;
+            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+            background-color: red;
+        }
+        
+
+
+        #body::-webkit-scrollbar-track {
+            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+            border-radius: 10px;
+            background-color: #F5F5F5;
+        }
+
+        #body::-webkit-scrollbar{
+            width: 12px;
+            background-color: #F5F5F5;
+        }
+
+        #body::-webkit-scrollbar-thumb{
+            border-radius: 10px;
+            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+            background-color: #555;
+        }
+        
+        #mark{
+            position:fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;  
+            background: rgba(0,0,0,0.7);
+        }
+        /* 竖屏 */
+        @media all and (orientation: portrait) {
+            /* 自定义样式 */
+            .row{
+                display: none;
+            }
+            .col{
+                display: block;
+            }
+        }
+        /* 横屏 */
+        @media all and (orientation: landscape) {
+            /* 自定义样式 */
+            .row{
+                display: block;
+            }
+            .col{
+                display: none;
+            }
+        }
+
+        #style-1 {
+            overscroll-behavior: contain;
+        }
+
+        .borderStyle{
+            width: 100px;
+            height: 200px;
+            border: 1px solid red;
+        }
+        .borderStyle2 {
+                position: relative;
+                width: 100px;
+                height: 200px;
+        }
+        .borderStyle2::after {
+                position: absolute;
+                left: 0;
+                top: 0;
+                border: 1px solid red;
+                content: "";
+                transform-origin: left top;
+        }
+        /* 2倍屏 */
+        @media only screen and (-webkit-min-device-pixel-ratio: 2.0) {
+                .borderStyle2::after {
+                        width: 200%;
+                        height: 200%;
+                        -webkit-transform: scale(0.5);
+                        transform: scale(0.5);
+                }
+        }
+
+        /* 3倍屏 */
+        @media only screen and (-webkit-min-device-pixel-ratio: 3.0) {
+                .borderStyle2::after {
+                        width: 300%;
+                        height: 300%;
+                        -webkit-transform: scale(0.33);
+                        transform: scale(0.33);
+                }
+        }
+        .lazyload{
+            display: block;
+            width: 80%;
+            height: 245px;
+            border: 1px solid red;
+        }
+        #style-2{
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            display: none;
+        }
+
+        * {
+            /* pointer-events: none; */ /* 微信浏览器还需附加该属性才有效 */
+            user-select: none; /* 禁止长按选择文字 */
+            -webkit-touch-callout: none;
+        }
+		/* 禁止选中文本，input，textarea会无法输入 */
+        .unselectable {
+			-moz-user-select: none;
+			-webkit-user-select: none;
+			-ms-user-select: none;
+			user-select: none;
+        }
+		input,
+		textarea {
+			-moz-user-select: auto;
+			-webkit-user-select: auto;
+			-ms-user-select: auto;
+			user-select: auto;
+		}
+
+        .all {
+			-moz-user-select: all;
+			-webkit-user-select: all;
+			-ms-user-select: all;
+			user-select: all;
+        }
+
+        /* 心 */
+        .heart-shape {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            background-color: #f66;
+            transform: rotate(45deg);
+            margin-left: 100px;
+            margin-top: 100px;
+            border-top: 1px solid black;
+            border-left: 1px solid yellow;
+            
+        }
+        .heart-shape::before,
+        .heart-shape::after {
+            position: absolute;
+            left: 0;
+            top: 0;
+            border-radius: 100%;
+            width: 100%;
+            height: 100%;
+            background-color: #f66;
+            content: "";
+        }
+        .heart-shape::before {
+            transform: translateX(-50%);
+            /* background-color: rgb(83, 60, 167); */
+        }
+        .heart-shape::after {
+            transform: translateY(-50%);
+            /* display: none; */
+        }
+
+        /* 气泡 */
+        .bubble-empty-box {
+            position: relative;
+            border: 2px solid #f90;
+            border-radius: 5px;
+            width: 200px;
+            height: 50px;
+            line-height: 46px;
+            text-align: center;
+            font-size: 20px;
+            color: #f90;
+            margin-top: 100px;
+        }
+        .bubble-empty-box::before {
+            position: absolute;
+            left: 100%;
+            top: 50%;
+            margin: -5px 0 0 2px;
+            border: 5px solid transparent;
+            border-left-color: #f90;
+            content: "";
+        }
+        .bubble-empty-box::after {
+            position: absolute;
+            left: 100%;
+            top: 50%;
+            margin-top: -4px;
+            border: 4px solid transparent;
+            border-left-color: #fff;
+            content: "";
+        }
+        .test-attr{
+            width: 80%;
+            height: 100px;
+            border: 1px solid ;
+        }
+        .test-attr::after{
+            content: attr(data-name);
+            width: 100px;
+            height: 20px;
+            color: #000;
+            display: inline-block;
+        }
+        
+        

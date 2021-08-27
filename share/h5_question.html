@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+        
+        <!-- 忽略自动识别电话 -->
+        <meta name="format-detection" content="telephone=no">
+
+        <!-- 忽略自动识别邮箱 -->
+        <!-- <meta name="format-detection" content="email=no"> -->
+
+        <!-- 忽略自动识别电话和邮箱 -->
+        <meta name="format-detection" content="telephone=no, email=no">
+
+        <!-- 设置Safari全屏，在iOS7+无效 -->
+        <meta name="apple-mobile-web-app-capable" content="yes">
+
+        <!-- 改变Safari状态栏样式，可选default/black/black-translucent，需在上述全屏模式下才有效 -->
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+        <!-- 保存网站到桌面时添加图标 -->
+        <link rel="apple-touch-icon" sizes="76x76" href="1.png">
+
+        <link rel="apple-touch-startup-image" href="1.png" media="(device-width: 375px)">
+        <!-- 
+            禁止页面缩放
+            width:可视区域的宽度，值可为数字或关键词 device-width（输出设备的屏幕可见宽度）
+            intial-scale:页面首次被显示是可视区域的缩放级别，取值1.0则页面按实际尺寸显示，无任何缩放
+            maximum-scale=1.0, minimum-scale=1.0;可视区域的缩放级别，
+            user-scalable:是否可对页面进行缩放，no 禁止缩放
+        -->
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, minimum-scale=1, maximum-scale=1">
+        
+        <!-- 禁止页面缓存 -->
+        <meta http-equiv="Cache-Control" content="no-cache">
+
+        <link rel="stylesheet" type="text/css" href="./h5_question.css" />
+		<title>h5_坑位</title>
+	</head>
+	<body id="body">
+
+        <a href="./cssvar.html">CSS 变量(原)</a>
+
+        <a href="./cssvar2.html">CSS 变量（变）</a>
+        <!-- 拨打电话 -->
+        <a href="tel:10086">拨打电话给10086</a>
+        
+        <!-- 发送短信 -->
+        <a href="sms:10086">发送短信给10086</a>
+        
+        <!-- 发送邮件 -->
+        <a href="mailto:young.joway@aliyun.com">发送邮件给JowayYoung</a>
+        
+        <!-- 选择照片或拍摄照片 -->
+        <input type="file" accept="image/*" value="选择照片或拍摄照片">
+        
+        <!-- 选择视频或拍摄视频 -->
+        <input type="file" accept="video/*"value="选择视频或拍摄视频">
+        
+        <!-- 多选文件 -->
+        <input type="file" multiple value="多选文件">
+
+
+        <!-- 纯数字带#和* -->
+        <input type="tel" placeholder="纯数字带#和*">
+
+        <!-- 纯数字 -->
+        <input type="number" pattern="\d*" placeholder="number" >
+
+
+        <!-- 打开微信 -->
+        <a href="weixin://">打开微信</a>
+
+        <!-- 打开支付宝 -->
+        <a href="alipays://">打开支付宝</a>
+
+        <!-- 打开支付宝的扫一扫 -->
+        <a href="alipays://platformapi/startapp?saId=10000007">打开支付宝的扫一扫</a>
+
+        <!-- 打开支付宝的蚂蚁森林 -->
+        <a href="alipays://platformapi/startapp?appId=60000002">打开支付宝的蚂蚁森林</a>
+
+        <!-- 关闭纠正 autocorrect 与  首字母大小写autocapitalize -->
+        <input type="text" autocapitalize="off" autocorrect="off" placeholder="禁止首字母大写，关闭自动纠正">
+        
+        <p id='mail'>251895921@qq.com</p>
+
+        <p class="row">这是横屏</p>
+        <p class="col">这是竖屏</p>
+        <!-- <button id="clickMArkBtn" onclick="clickMArk(event)">展示/隐藏弹层</button> -->
+        <button id="clickMArkBtn">滚动标识</button>
+        <div id="mark" style="display: none;" onclick="hideMArk(event)"></div>
+        <div class="scrollbar" id="style-1">
+            <div class="force-overflow">
+                <p>1</p>
+                <p>2</p>
+            </div>
+        </div>
+
+        <div class="scrollbar" id="style-2">
+            <div class="force-overflow">
+                <p>2</p>
+                <p>2</p>
+            </div>
+        </div>
+        <div class="borderStyle"></div>
+        <div class="borderStyle2"></div>
+
+        <img class="lazyload" data-src="1.png">
+        <img class="lazyload" data-src="1.png">
+        <img class="lazyload" data-src="1.png">
+        <img class="lazyload" data-src="1.png">
+        <img class="lazyload" data-src="1.png">
+        <img class="lazyload" data-src="1.png">
+        <img class="lazyload" data-src="1.png">
+        <img class="lazyload" data-src="1.png">
+        <img class="lazyload" data-src="1.png">
+        <div id="bottom"></div>
+
+        <p>你应该可以选中这段文本。</p>
+        <p class="unselectable">嘿嘿，你不能选中这段文本！</p>
+        <p class="all">点击一次就会选中这段文本。</p>
+
+        <!-- <a href="./over_open_close.html">多行文本展开隐藏</a> -->
+        <!-- <a href="./1.html">demo</a> -->
+
+        <!-- 心 -->
+        <div class="heart-shape"></div>
+        <!-- 气泡 -->
+        <div class="bubble-empty-box">iCSS</div>
+
+        <div class="test-attr" data-name="jcl">
+
+        </div>
+
+	</body>
+    <script>
+
+
+        const date = "2019-03-31 21:30:00";
+        new Date(date.replace(/\-/g, "/"));
+
+        // 指定元素滚动到可视区域顶部
+        document.getElementById('clickMArkBtn').scrollIntoView({behavior: "smooth"});
+
+        let scrollTop = null;
+        function clickMArk (e) {
+
+            document.getElementById('mark').style.display = 'block'
+
+            e.stopPropagation();
+            scrollTop = document.scrollingElement.scrollTop;
+            body.classList.add("static");
+            body.style.top = `-${scrollTop}px`;
+
+        }
+        function hideMArk (e) {
+            document.getElementById('mark').style.display = 'none'
+            e.stopPropagation();
+            body.classList.remove("static");
+            body.style.top = "";
+            document.scrollingElement.scrollTop = scrollTop
+        }
+        window.onload = function() {
+            // 阻止双击放大
+            var lastTouchEnd = 0;
+            document.addEventListener('touchend', function(event) {
+                var now = (new Date()).getTime();
+                if (now - lastTouchEnd <= 300) {
+                    event.preventDefault();
+                }
+                lastTouchEnd = now;
+            }, false);
+
+            // 阻止双指放大
+            document.addEventListener('gesturestart', function(event) {
+                event.preventDefault();
+            });
+        }
+        
+        // 图片惰性加载
+        const imgs = document.querySelectorAll("img.lazyload");
+        const observer = new IntersectionObserver(nodes => {
+            console.log(nodes,'========');
+            nodes.forEach(v => {
+                console.log(v.intersectionRatio,'===v.intersectionRatio===');
+                if (v.isIntersecting) { // 判断是否进入可视区域
+                    v.target.src = v.target.dataset.src; // 赋值加载图片
+                    observer.unobserve(v.target); // 停止监听已加载的图片
+                }
+            });
+        },{
+            threshold:[0.5]
+        });
+        imgs.forEach(v => observer.observe(v));
+
+        // 下拉加载
+        const bottom = document.getElementById("bottom");
+        const observer2 = new IntersectionObserver(nodes => {
+            const tgt = nodes[0]; // 反正只有一个
+            if (tgt.isIntersecting) {
+                console.log("已到底部，请求接口");
+                alert('已到底部')
+                // 执行接口请求代码
+            }
+        })
+        observer2.observe(bottom);
+
+
+    </script>
+    
+</html>
