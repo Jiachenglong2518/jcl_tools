@@ -2,7 +2,7 @@
 export class Action {
   constructor({ selfAction, params }) {
     this.selfAction = selfAction; //当前要执行的方法
-    this.params = params; // 当前方法的参数
+    this.params = params;   // 当前方法的参数
     this.nextAction = null; //下一个要执行的action实例
   }
   setNextAction(action) {
