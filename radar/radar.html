@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<title>雷达扫描</title>
+<style>
+  body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #061018;
+  }
+
+  .operator-container {
+    margin: 40px;
+  }
+
+  .operator-container button {
+    background: rgba(0, 255, 100, 0.15);
+    color: #0f0;
+    border: 1px solid rgba(0, 255, 100, 0.6);
+    padding: 8px 16px;
+    font-size: 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-shadow: 0 0 4px #0f0;
+    box-shadow: 0 0 6px rgba(0, 255, 100, 0.4);
+  }
+
+  .radar {
+    position: relative;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(0,255,100,0.08) 0%, transparent 70%);
+  }
+
+  .circle {
+    position: absolute;
+    border: 1px solid rgba(0,255,100,0.25);
+    border-radius: 50%;
+    left: 50%; top: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .sweep {
+    position: absolute;
+    border-radius: 50%;
+    transform: rotate(0deg);
+  }
+
+  .dot {
+    position: absolute;
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: #0f0;
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.7);
+    box-shadow: 0 0 6px #0f0;
+    transition: transform 0.3s ease, opacity 0.8s ease;
+  }
+  .dot.active {
+    transform: translate(-50%, -50%) scale(1.6);
+    opacity: 1;
+    box-shadow: 0 0 15px #0f0, 0 0 30px #0f0;
+  }
+</style>
+</head>
+<body>
+  <div class="operator-container">
+    <button onclick="radar.start()">开始</button>
+    <button onclick="radar.stop()">停止</button>
+    <button onclick="radar.addDot()">添加</button>
+    <button onclick="radar.clearDots()">清空</button>
+  </div>
+  <div id="radar-container"></div>
+<script>
+class Radar {
+  constructor(container, options = {}) {
+    this.container = container;
+    this.size = options.size || 400; //容器宽度
+    this.numCircles = options.numCircles || 4; //同心圆个数
+    this.sweepDeg = options.sweepDeg || 20; //扫描区域角度
+    this.duration = options.duration || 4000; //一圈的时间
+    this.dotsNums = options.dotsNums || 4; // 默认存在几个点
+
+    this.rings = []; //同心圆的集合
+    this.dots = []; //点的集合
+    this.aniFrame = null; // 保存 requestAnimationFrame ID
+    this.CX = this.size / 2; //中心点x坐标
+    this.CY = this.size / 2; //中心点Y坐标
+    this.currentSweep = 0; // 保存当前扫描角度
+    this.isRunning = false; // 标记动画状态
+
+    this.initRadar();
+    this.start()
+  }
+
+  initRadar() {
+    // 雷达容器
+    this.radarEl = document.createElement('div');
+    this.radarEl.className = 'radar';
+    this.radarEl.style.width = this.size + 'px';
+    this.radarEl.style.height = this.size + 'px';
+    this.container.appendChild(this.radarEl);
+
+    // 同心圆
+    // 同心圆半径差
+    const step = this.size / (2 * this.numCircles);
+    for (let i = 1; i <= this.numCircles; i++) {
+      const circle = document.createElement('div');
+      circle.className = 'circle';
+      const w = step * i * 2;
+      circle.style.width = w + 'px';
+      circle.style.height = w + 'px';
+      this.radarEl.appendChild(circle);
+      this.rings.push(step * i);
+    }
+
+    // 扫描扇形
+    this.sweepEl = document.createElement('div');
+    this.sweepEl.className = 'sweep';
+    this.sweepEl.style.width = this.size + 'px';
+    this.sweepEl.style.height = this.size + 'px';
+    this.sweepEl.style.background = `conic-gradient(
+      rgba(0,255,100,0.3) 0deg,
+      rgba(0,255,100,0.15) ${this.sweepDeg/2}deg,
+      rgba(0,255,100,0) ${this.sweepDeg}deg
+    )`;
+    this.radarEl.appendChild(this.sweepEl);
+
+    // 点
+    for (let i = 0; i < this.dotsNums; i++) {
+      this.addDot();
+    }
+  }
+
+  addDot() {
+    const r = this.rings[Math.floor(Math.random() * this.rings.length)];
+    const angle = Math.random() * 360;
+    // 计算x，y相对容器的坐标
+    // 数学计算中角度相对于X坐标轴正向，css中0度相对于y坐标轴正向
+    const x = this.CX + r * Math.cos((angle - 90) * Math.PI / 180);
+    const y = this.CY + r * Math.sin((angle - 90) * Math.PI / 180);
+
+    const dot = document.createElement('div');
+    dot.className = 'dot';
+    dot.style.left = x + 'px';
+    dot.style.top = y + 'px';
+    this.radarEl.appendChild(dot);
+    this.dots.push({ el: dot, angle });
+  }
+
+  // 清空
+  clearDots() {
+    this.dots.forEach(dot => this.radarEl.removeChild(dot.el));
+    this.dots = [];
+  }
+
+  // 是否重合
+  isCover(sweepAngle, dotAngle) {
+    // 考虑角度循环 0~360
+    const start = sweepAngle % 360;
+    const end = (start + this.sweepDeg) % 360;
+    if (start < end) {
+      return dotAngle >= start && dotAngle <= end;
+    } else {
+      return dotAngle >= start || dotAngle <= end;
+    }
+  }
+
+  // 开始
+  start() {
+    if (this.isRunning) return this; // 避免重复启动
+    this.isRunning = true;
+
+    // 在暂停后继续运行时，保持扫描角度的连续性，而不是重新从 0 度开始
+    const startTime = performance.now() - (this.currentSweep / 360) * this.duration;
+
+    const tick = (now) => {
+      // 过去完整圈数余下的时间
+      const elapsed = (now - startTime) % this.duration;
+      // 旋转的角度
+      const sweepAngle = (elapsed / this.duration) * 360;
+      // 记录当前角度，以便重新启动
+      this.currentSweep = sweepAngle;
+
+      this.sweepEl.style.transform = `rotate(${sweepAngle}deg)`;
+
+      this.dots.forEach(dot => {
+        if (this.isCover(sweepAngle, dot.angle)) {
+          dot.el.classList.add('active');
+        } else {
+          dot.el.classList.remove('active');
+        }
+      });
+
+      if (this.isRunning) {
+        this.aniFrame = requestAnimationFrame(tick);
+      }
+    };
+
+    this.aniFrame = requestAnimationFrame(tick);
+  }
+
+  stop() {
+    this.isRunning = false;
+    if (this.aniFrame) cancelAnimationFrame(this.aniFrame);
+  }
+}
+
+const container = document.getElementById('radar-container');
+const radar = new Radar(container, {
+  size: 500,
+  numCircles: 5,
+  sweepDeg: 20,
+  duration: 5000,
+  dotsNums: 10
+});
+console.log(radar, 'radar')
+</script>
+</body>
+</html>
